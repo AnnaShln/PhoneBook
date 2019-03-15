@@ -9,60 +9,40 @@ import java.util.*;
 
 public class PhoneBook {
     
-    private Map<String, HashSet<String>> persons = new HashMap<>();
-    String name; //private
+    private Map<String, Set<String>> persons = new HashMap<>();
 
-    private HashSet<String> numbers = new HashSet<>(); //interface
-
-    public void addFirstNumber(String number) {
+    public Map addPerson(String name, String number) {
+        Set<String> numbers = new HashSet<>();
         numbers.add(number);
+        persons.put(name, numbers);
+        return persons;
     }
 
-    // boolean
-    public void addPerson(String name, String number) {
-        persons.put(name, numbers);   //numbers method local + check of presence name in map through get
-    }
-
-    public void deletePerson(String name, String number) {
+    public Map deletePerson(String name) {
         persons.remove(name);
+        return persons;
     }
 
-    public void addNumber(String number, String name) {
-        persons.get(name).add(number);
+    public boolean addNumber(String number, String name) {
+        return persons.get(name).add(number);
     }
 
-    public void deleteNumber(String number, String name) {
-        persons.get(name).remove(number);
+    public boolean deleteNumber(String number, String name) {
+        return persons.get(name).remove(number);
     }
 
-    //interface vs implementation
-    public HashSet searchByName(String name) {
-        persons.get(name); //assignment; return persons.get(...);
-        return numbers;
+    public Set searchByName(String name) {
+        return persons.get(name);
     }
 
     public String searchByNumber (String number) {
-        persons.get(number);    //
-        return name;
-        //
-        //
-
-        /*for (String key: persons.keySet()){
+        String wantedname = null;
+        for (String key: persons.keySet()) {
             persons.get(key);
-        }*/
-    }
-
-    // phoneBookEnrty + set
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PhoneBook phoneBook = (PhoneBook) o;
-        return Objects.equals(name, phoneBook.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
+            for (Object value: persons.get(key)) {
+                if (number == value) return wantedname = key;
+            }
+        }
+        return wantedname;
     }
 }

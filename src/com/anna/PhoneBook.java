@@ -28,9 +28,12 @@ public class PhoneBook {
     public boolean addNumber(String number, String name) {
         if (persons.containsKey(name)) {
             if (number.matches("[\\d+#*-]+")) {
-                if (persons.containsKey(name)) return persons.get(name).add(number);
-                else return false;
-            } else return false;
+                for (String value : persons.get(name)) {
+                    if (number.equals(value)) return false;
+                }
+                return persons.get(name).add(number);
+            }
+            else return false;
         }
         else return false;
     }
@@ -43,12 +46,12 @@ public class PhoneBook {
                         persons.get(name).remove(number);
                         return true;
                     }
-                    else return false;
                 }
+                return false;
             }
             else return false;
         }
-        return false;
+        else return false;
     }
 
     public Set searchByName(String name) {

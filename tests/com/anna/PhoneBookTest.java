@@ -74,6 +74,14 @@ class PhoneBookTest {
         boolean actual = example.addNumber("85780240", "Юля");
         assertFalse(actual);
     }
+    @org.junit.jupiter.api.Test
+    void addNumber_NumberExists() {
+        PhoneBook example = new PhoneBook();
+        example.addPerson("Маша", "+293874837");
+        example.addPerson("Катя", "#0923-8499339");
+        boolean actual = example.addNumber("+293874837", "Маша");
+        assertFalse(actual);
+    }
 
     @org.junit.jupiter.api.Test
     void deleteNumber() {
